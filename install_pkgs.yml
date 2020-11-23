@@ -12,9 +12,21 @@
         state: latest
         update_cache: yes
 
+- hosts: Linuxlite
+  vars:
+        ansible_python_interpreter: /usr/bin/python3
+  remote_user: amit
+  gather_facts: no
+  tasks:
+  
+  - name: update the repo and install stress-ng
+    package:
+       name:
+          - "{{ apache_package }}"
+          - "{{ stress_package }}"
 
 - hosts: CentOS_servers
-  become:true
+  become: yes
   tasks:
 
   - name: update the repo and install apache package
@@ -24,4 +36,5 @@
            -  "{{ stress_package }}"
         state: latest
         update_cache: yes
+        ansible_python_interpreter: /usr/bin/python
 
