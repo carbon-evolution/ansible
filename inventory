@@ -1,6 +1,9 @@
-192.168.200.99
-192.168.200.100
-192.168.200.101
-192.168.200.102
-192.168.200.103
+[Ubuntu_servers]
+192.168.200.99 apache_package=apache2 stress_package=stress-ng
+192.168.200.100 apache_package=apache2 stress_package=stress-ng
+192.168.200.101 apache_package=apache2 stress_package=stress-ng
+192.168.200.102 apache_package=apache2 stress_package=stress-ng
+
+[CentOS_servers]
+192.168.200.103 apache_package=httpd stress_package=stress-ng
 
