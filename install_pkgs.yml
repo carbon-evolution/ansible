@@ -7,8 +7,8 @@
   - name: update the repo and install apache package
     package:
         name: 
-           - "{{ apache_package }}"
-           -  "{{ stress_package }}"
+           - apache2
+           - stress-ng
         state: latest
         upgrade: dist
         update_cache: yes
