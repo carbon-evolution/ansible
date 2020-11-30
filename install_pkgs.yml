@@ -1,17 +1,22 @@
 ---
 
+#=================== Ubuntu Servers ======================
 - hosts: Ubuntu_servers
   become: true
   tasks:
 
   - name: update the ubuntu repos and install packages
-    apt: 
+    package: 
         name:
-            - htop
-            - stress-ng 
+# "*" ==> Upgrades all the packages
+            - "*"
+#            - htop
+#            - stress-ng 
         state: latest
         update_cache: yes
 
+
+#=================== CentOS Server ========================
 - hosts: CentOS_servers
   vars:
        ansible_python_interpreter: /usr/bin/python
@@ -21,14 +26,17 @@
   tasks:
 
   - name: update the centos repos and install packages
-    dnf:
+    package:
         name:
-            - epel-release
-            - htop
-            - stress-ng 
+            - "*" 
+#            - epel-release
+#            - htop
+#            - stress-ng 
         state: latest
         update_cache: yes
 
+
+#==================== Linux Lite =======================
 - hosts: Linux_lite_server
   vars:
        ansible_python_interpreter: /usr/bin/python
@@ -40,8 +48,10 @@
   - name: update the linux lite repos and install packages
     package:
         name:
-            - htop
-            - stress-ng
-            - traceroute
+# "*" ==> Upgrades all the packages
+            - "*"
+#            - htop
+#            - stress-ng
+#            - traceroute
         state: latest
         update_cache: yes
