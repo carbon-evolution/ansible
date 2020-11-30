@@ -27,6 +27,7 @@
           - "{{ apache_package }}"
           - "{{ stress_package }}"
        state: latest
+       upgrade: dist
        update_cache: yes
 
 - hosts: CentOS_servers
