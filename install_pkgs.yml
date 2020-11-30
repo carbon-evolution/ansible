@@ -4,5 +4,44 @@
   become: true
   tasks:
 
-  - name: update the repo and install apache package
-    apt: name=htop state=latest update_cache=yes
+  - name: update the ubuntu repos and install packages
+    apt: 
+        name:
+            - htop
+            - stress-ng 
+        state: latest
+        update_cache: yes
+
+- hosts: CentOS_servers
+  vars:
+       ansible_python_interpreter: /usr/bin/python
+  become: true
+  become_method: su
+  become_user: root
+  tasks:
+
+  - name: update the centos repos and install packages
+    dnf:
+        name:
+            - epel-release
+            - htop
+            - stress-ng 
+        state: latest
+        update_cache: yes
+
+- hosts: Linux_lite_server
+  vars:
+       ansible_python_interpreter: /usr/bin/python
+       ansible_connection: ssh
+       scp_if_ssh: true
+  become: true
+  tasks:
+
+  - name: update the linux lite repos and install packages
+    package:
+        name:
+            - htop
+            - stress-ng
+            - traceroute
+        state: latest
+        update_cache: yes
