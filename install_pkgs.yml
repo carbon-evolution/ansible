@@ -9,9 +9,9 @@
     package: 
         name:
 # "*" ==> Upgrades all the packages
-            - "*"
-#            - htop
-#            - stress-ng 
+#            - "*"
+            - htop
+            - stress-ng 
         state: latest
         update_cache: yes
 
@@ -28,9 +28,9 @@
   - name: update the centos repos and install packages
     package:
         name:
-            - "*" 
+#            - "*" 
 #            - epel-release
-#            - htop
+            - htop
 #            - stress-ng 
         state: latest
         update_cache: yes
@@ -49,9 +49,29 @@
     package:
         name:
 # "*" ==> Upgrades all the packages
-            - "*"
+#            - "*"
 #            - htop
-#            - stress-ng
+            - stress-ng
 #            - traceroute
         state: latest
         update_cache: yes
+
+
+#=================== Pop server ========================
+- hosts: Pop_server
+#  vars:
+#       ansible_python_interpreter: /usr/bin/python
+  become: true
+  tasks:
+
+  - name: update the pop repos and install packages
+    package:
+        name:
+            - "*"
+#            - htop
+#            - stress-ng
+        state: latest
+        update_cache: yes
+
+
+
