@@ -5,15 +5,54 @@
   become: true
   tasks:
 
+#  - name: Changing the firewall config file
+#    tags: ubuntu
+#    replace: 
+#        path: /etc/default/ufw
+#        regexp: \(=no\)
+#       replace: =no
+
+  - name: Run the command in shell and forward the output to the file
+    tags: ubuntu
+    shell: sudo ufw status > /home/amit/ufw_status_output
+
+  
+  - name: Enable the firewall
+    tags: ubuntu
+    ufw:
+        state: enabled
+        logging: 'on'
+  - name: allow ssh 
+    ufw: 
+        rule: allow
+        name: openssh
+  - name: block dns 
+    ufw:    
+        rule: deny
+        port: '53'
+  - name: allow 4444
+    ufw:
+        rule: allow
+        port: '4444'
+  - name: deny 2222
+    ufw:
+        rule: deny
+        port: '2222'
+  - name: restart the firewall
+    ufw:
+       state: reloaded
+  
+
   - name: update the ubuntu repos and install packages
+    tags: ubuntu
     package: 
         name:
 # "*" ==> Upgrades all the packages
 #            - "*"
-            - htop
+#            - htop
             - stress-ng 
         state: latest
-        update_cache: yes
+#        update_cache: yes
 
 
 #=================== CentOS Server ========================
@@ -26,12 +65,14 @@
   tasks:
 
   - name: update the centos repos and install packages
+    tags: centos
     package:
         name:
 #            - "*" 
-#            - epel-release
+            - epel-release
             - htop
-#            - stress-ng 
+            - httpd
+            - stress-ng 
         state: latest
         update_cache: yes
 
@@ -46,13 +87,14 @@
   tasks:
 
   - name: update the linux lite repos and install packages
+    tags: lite
     package:
         name:
 # "*" ==> Upgrades all the packages
 #            - "*"
-#            - htop
+            - htop
             - stress-ng
-#            - traceroute
+            - traceroute
         state: latest
         update_cache: yes
 
@@ -65,11 +107,12 @@
   tasks:
 
   - name: update the pop repos and install packages
+    tags: pop 
     package:
         name:
-            - "*"
-#            - htop
-#            - stress-ng
+#            - "*"
+            - htop
+            - stress-ng
         state: latest
         update_cache: yes
 
