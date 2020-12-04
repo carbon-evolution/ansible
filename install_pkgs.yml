@@ -16,31 +16,39 @@
     tags: ubuntu
     shell: sudo ufw status > /home/amit/ufw_status_output
 
-  
-  - name: Enable the firewall
+  - name: Set the firewall rules in Ubuntu Servers
     tags: ubuntu
-    ufw:
-        state: enabled
-        logging: 'on'
-  - name: allow ssh 
-    ufw: 
-        rule: allow
-        name: openssh
-  - name: block dns 
-    ufw:    
-        rule: deny
-        port: '53'
-  - name: allow 4444
-    ufw:
-        rule: allow
-        port: '4444'
-  - name: deny 2222
-    ufw:
-        rule: deny
-        port: '2222'
-  - name: restart the firewall
-    ufw:
-       state: reloaded
+    shell: ufw enable
+    shell: ufw allow openssh
+    shell: ufw allow 4444
+    shell: ufw allow 2222
+    shell: ufw reload
+
+  
+  # - name: Enable the firewall
+  #   tags: ubuntu
+  #   ufw:
+  #       state: enabled
+  #       logging: 'on'
+  # - name: allow ssh 
+  #   ufw: 
+  #       rule: allow
+  #       name: openssh
+  # - name: block dns 
+  #   ufw:    
+  #       rule: deny
+  #       port: '53'
+  # - name: allow 4444
+  #   ufw:
+  #       rule: allow
+  #       port: '4444'
+  # - name: deny 2222
+  #   ufw:
+  #       rule: deny
+  #       port: '2222'
+  # - name: restart the firewall
+  #   ufw:
+  #      state: reloaded
   
 
   - name: update the ubuntu repos and install packages
