@@ -19,10 +19,10 @@
   - name: Set the firewall rules in Ubuntu Servers
     tags: ubuntu
     shell: ufw enable
-    shell: ufw allow openssh
-    shell: ufw allow 4444
-    shell: ufw allow 2222
-    shell: ufw reload
+           ufw allow openssh
+           ufw allow 4444
+           ufw allow 2222
+           ufw reload
 
   
   # - name: Enable the firewall
@@ -61,28 +61,6 @@
             - stress-ng 
         state: latest
 #        update_cache: yes
-
-
-#=================== CentOS Server ========================
-- hosts: CentOS_servers
-  vars:
-       ansible_python_interpreter: /usr/bin/python
-  become: true
-  become_method: su
-  become_user: root
-  tasks:
-
-  - name: update the centos repos and install packages
-    tags: centos
-    package:
-        name:
-#            - "*" 
-            - epel-release
-            - htop
-            - httpd
-            - stress-ng 
-        state: latest
-        update_cache: yes
 
 
 #==================== Linux Lite =======================
@@ -124,5 +102,26 @@
         state: latest
         update_cache: yes
 
+
+#=================== CentOS Server ========================
+- hosts: CentOS_servers
+  vars:
+       ansible_python_interpreter: /usr/bin/python
+  become: true
+  become_method: su
+  become_user: root
+  tasks:
+
+  - name: update the centos repos and install packages
+    tags: centos
+    package:
+        name:
+#            - "*" 
+            # - epel-release
+            # - htop
+            # - httpd
+            # - stress-ng 
+        state: latest
+        update_cache: yes
 
 
