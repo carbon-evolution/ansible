@@ -8,12 +8,12 @@
 
   - name: update the ubuntu repos and install packages
     tags: ubuntu
-    package: 
+    package:
         name:
 # "*" ==> Upgrades all the packages
           #  - "*"
            - htop
-           - stress-ng 
+           - stress-ng
         state: latest
         update_cache: yes
 
@@ -50,7 +50,7 @@
   tasks:
 
   - name: update the pop repos and install packages
-    tags: pop 
+    tags: pop
     package:
         name:
           #  - "*"
@@ -74,11 +74,11 @@
     tags: centos
     package:
         name:
-          #  - "*" 
+          #  - "*"
            - epel-release
            - htop
            - httpd
-           - stress-ng 
+           - stress-ng
         state: latest
         update_cache: yes
 
