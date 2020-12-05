@@ -43,8 +43,8 @@
 
 #=================== Pop server ========================
 - hosts: Pop_server
-#  vars:
-#       ansible_python_interpreter: /usr/bin/python
+  vars:
+       ansible_python_interpreter: /usr/bin/python
   gather_facts: false
   become: true
   tasks:
