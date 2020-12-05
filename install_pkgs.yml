@@ -14,15 +14,8 @@
 
   - name: Run the command in shell and forward the output to the file
     tags: ubuntu
-    shell: sudo ufw status > /home/amit/ufw_status_output
-
-  - name: Set the firewall rules in Ubuntu Servers
-    tags: ubuntu
-    shell: ufw enable
-           ufw allow openssh
-           ufw allow 4444
-           ufw allow 2222
-           ufw reload
+    shell: 
+          ufw enable
 
   
   # - name: Enable the firewall
