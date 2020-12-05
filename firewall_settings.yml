@@ -26,6 +26,7 @@
     ufw:
         rule: deny
         port: 53
+        delete: yes
         
 
 
