@@ -74,11 +74,11 @@
     tags: centos
     package:
         name:
-           - "*" 
-          #  - epel-release
-          #  - htop
-          #  - httpd
-          #  - stress-ng 
+          #  - "*" 
+           - epel-release
+           - htop
+           - httpd
+           - stress-ng 
         state: latest
         update_cache: yes
 
