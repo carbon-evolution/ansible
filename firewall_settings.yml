@@ -1,0 +1,39 @@
+---
+
+#=================== Ubuntu Servers ======================
+- hosts: Ubuntu_servers
+  tags: ubuntu
+  gather_facts: false
+  become: true
+  tasks:
+
+  - name: Enable firewall ufw on ubuntu servers
+    ufw:
+        state: enabled
+        policy: deny
+
+  - name: set the logging for ufw
+    ufw:
+        logging: on
+
+  - name: deny certain port like "2222"
+    ufw:
+        rule: deny
+        port: 2222
+        delete: yes
+  
+  - name: deny DNS port
+    ufw:
+        rule: deny
+        port: 53
+        
+
+
+
+
+
+
+
+
+
+
