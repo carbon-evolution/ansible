@@ -15,6 +15,7 @@
            - htop
            - stress-ng
         state: latest
+        # state: absent       # To remove the packages from the servers
         update_cache: yes
 
 
