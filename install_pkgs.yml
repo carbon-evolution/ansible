@@ -48,6 +48,8 @@
        ansible_python_interpreter: /usr/bin/python
   gather_facts: false
   become: true
+  become_method: su
+  become_user: root
   tasks:
 
   - name: update the pop repos and install packages
