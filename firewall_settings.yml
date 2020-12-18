@@ -16,25 +16,138 @@
     ufw:
         logging: on
 
-  - name: deny certain port like "2222"
+  - name: Allow SSH port for OpenSSH application
+    ufw:
+        rule: allow
+        port: "22"
+        # delete: yes   #Deleting the UFW rule
+
+  - name: Delete the OpenSSH port
+    ufw:
+        rule: allow     #Keep the rule as "allow" if you want to delete the rule from the ufw
+        name: OpenSSH
+        delete: yes   #Deleting the UFW rule 
+
+  - name: deny certain port like 2222
     ufw:
         rule: deny
-        port: 2222
-        delete: yes
+        port: "2222"
+        # delete: yes       #Deleting the UFW rule 
   
-  - name: deny DNS port
+  - name: deny DNS port 53
     ufw:
         rule: deny
-        port: 53
-        delete: yes
+        port: "53"
+        # delete: yes       #Deleting the UFW rule 
         
 
+#=================== POP Server ======================
+- hosts: Pop_server
+  tags: pop
+  gather_facts: false
+  become: true
+  tasks:
+
+  - name: Enable firewall ufw on ubuntu servers
+    ufw:
+        state: enabled
+        policy: deny
+
+  - name: set the logging for ufw
+    ufw:
+        logging: on
+
+  - name: Allow SSH port for OpenSSH application
+    ufw:
+        rule: allow
+        port: "22"
+        # delete: yes   #Deleting the UFW rule
+
+  - name: Delete the OpenSSH port
+    ufw:
+        rule: allow     #Keep the rule as "allow" if you want to delete the rule from the ufw
+        name: OpenSSH
+        delete: yes   #Deleting the UFW rule 
+
+  - name: deny certain port like 2222
+    ufw:
+        rule: deny
+        port: "2222"
+        # delete: yes   #Deleting the UFW rule 
+  
+  - name: deny DNS port 53
+    ufw:
+        rule: deny
+        port: "53"
+        # delete: yes #Deleting the UFW rule 
 
 
+#=================== CentOS Servers ======================
+# Like Ubuntu, CentOS doesn't have UFW, but they operate the firewall rules using firewalld.
+# Firewalld is running in the background after fresh installation, but if it is not then we have start the firewalld services and set the rules accordingly
+# We can install the UFW package in CentOS and Linux Lite, but it will be a good exercise to use the native services using ansible
+# Install "ansible-galaxy collection install ansible.posix" to use it in playbook (ansible.posix.firewalld)
+- hosts: CentOS_servers
+  vars:
+       ansible_python_interpreter: /usr/bin/python
+  gather_facts: false
+  become: true
+  become_method: su
+  become_user: root
+  tags: centos
+  tasks:
+
+  - name: Enable and start firewalld on Linux lite server
+    service:
+        name: firewalld
+        enabled: yes
+        state: started
+  
+  - name: Enable the http services in DMZ zone
+    firewalld:
+        zone: dmz
+        port: 80/tcp
+        state: enabled
+        # state: disabled     # It is used to delete the rule from firewall
+        permanent: true
+
+  - name: Reload the firewalld services
+    systemd:
+        name: firewalld
+        state: reloaded
 
 
+#=================== Linux Lite Servers ======================
+# Like Ubuntu, CentOS doesn't have UFW, but they operate the firewall rules using firewalld.
+# Firewalld is running in the background after fresh installation, but if it is not then we have start the firewalld services and set the rules accordingly
+# We can install the UFW package in CentOS and Linux Lite, but it will be a good exercise to use the native services using ansible
+# Install "ansible-galaxy collection install ansible.posix" to use it in playbook (ansible.posix.firewalld)
+- hosts: Linux_lite_server
+  vars:
+      ansible_python_interpreter: /usr/bin/python
+      ansible_connection: ssh
+      scp_if_ssh: true
+  tags: lite
+  gather_facts: false
+  become: true
+  tasks:
 
+  - name: Enable and start firewalld on Linux lite server
+    service:
+        name: firewalld
+        enabled: yes
+        state: started
+  
+  - name: Enable the http services in DMZ zone
+    firewalld:
+        zone: dmz
+        port: 80/tcp
+        # state: enabled
+        state: disabled     # It is used to delete the rule from firewall
+        permanent: true
 
-
-
+  - name: Reload the firewalld services
+    systemd:
+        name: firewalld
+        state: reloaded
 
