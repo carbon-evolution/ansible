@@ -1,0 +1,49 @@
+
+#=================== Ubuntu Servers ======================
+- hosts: Ubuntu_servers
+  gather_facts: false
+  tags: ubuntu
+  become: true
+  tasks:
+
+  # To ensure NOT to have any conflict in using the port 80/443 on the server
+
+  # Disable the apache service if installed on the system
+  # - name: Disable apache2 services
+  #   # tags: ubuntu
+  #   service:
+  #       name: apache2
+  #       enabled: no
+  #       state: stopped       # To remove the packages from the servers
+
+  - name: Removing the apache2 files from the system
+    # tags: ubuntu
+    file:
+        path: /etc/apache2
+        state: absent
+
+  - name: Ensure apache is not present (Uninstalling Apache)
+    # tags: ubuntu
+    package:
+        name: apache2
+        autoremove: yes
+        purge: yes          # Use purge to completely remove the package from the system
+        state: absent       # To remove the packages from the servers
+
+  # Install the Nginx services
+  - name: Install nginx
+    # tags: ubuntu
+    package:              # Use module 'package' to install nginx
+        name: nginx
+        state: latest     # Install the latest version of nginx
+
+  # Enable and start the nginx services
+  - name: Enable and start the nginx services
+    # tags: ubuntu
+    service:
+        name: nginx
+        state: started
+
+
+
+
