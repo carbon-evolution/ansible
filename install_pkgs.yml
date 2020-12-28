@@ -13,10 +13,17 @@
 # "*" ==> Upgrades all the packages
           #  - "*"
            - htop
+           - curl
            - stress-ng
         state: latest
         # state: absent       # To remove the packages from the servers
         update_cache: yes
+
+  - name: Remove dependencies which are no longer required
+    tags: ubuntu
+    package:
+        autoremove: yes
+        purge: yes            # Use purge with autoremove
 
 
 #==================== Linux Lite =======================
@@ -41,6 +48,12 @@
         state: latest
         update_cache: yes
 
+  - name: Remove dependencies which are no longer required
+    tags: lite
+    package:
+        autoremove: yes
+        purge: yes            # Use purge with autoremove
+
 
 #=================== POP server ========================
 - hosts: Pop_server
@@ -61,6 +74,12 @@
            - stress-ng
         state: latest
         update_cache: yes
+
+  - name: Remove dependencies which are no longer required
+    tags: pop
+    package:
+        autoremove: yes
+        purge: yes            # Use purge with autoremove
 
 
 #=================== CentOS Server ========================
@@ -84,5 +103,11 @@
            - stress-ng
         state: latest
         update_cache: yes
+
+  - name: Remove dependencies which are no longer required
+    tags: lite
+    package:
+        autoremove: yes
+        purge: yes            # Use purge with autoremove
 
 
