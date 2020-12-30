@@ -44,6 +44,21 @@
         name: nginx
         state: started
 
+  # Rename the default index file in nginx
+  - name: Change the default index file in nginx
+    tags: index
+    command: mv /var/www/html/index.nginx-debian.html /var/www/html/index.nginx-debian.html.bak
+
+  # Change the default index file of nginx to custom index file
+  - name: Change the default index file in nginx
+    tags: index
+    copy:
+        src: default.html
+        dest: /var/www/html/index.nginx-debian.html
+        owner: root
+        group: root
+        mode: 0644
+
 
 
 
