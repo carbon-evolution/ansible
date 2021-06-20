@@ -11,3 +11,14 @@
 
 [Pop_server]
 192.168.200.104
+
+[all:children]
+Ubuntu_servers
+CentOS_servers
+Linux_lite_server
+Pop_server
+
+[all:vars]
+ansible_connection=ssh
+ansible_ssh_user=amit
+ansible_ssh_pass=amit
