@@ -29,7 +29,7 @@
 #==================== Linux Lite =======================
 - hosts: Linux_lite_server
   vars:
-       ansible_python_interpreter: /usr/bin/python
+       ansible_python_interpreter: /usr/bin/python3
        ansible_connection: ssh
        scp_if_ssh: true
   gather_facts: false
@@ -58,7 +58,7 @@
 #=================== POP server ========================
 - hosts: Pop_server
   vars:
-       ansible_python_interpreter: /usr/bin/python
+       ansible_python_interpreter: /usr/bin/python3
   gather_facts: false
   become: true
   become_method: su
@@ -85,7 +85,7 @@
 #=================== CentOS Server ========================
 - hosts: CentOS_servers
   vars:
-       ansible_python_interpreter: /usr/bin/python
+       ansible_python_interpreter: /usr/bin/python3
   gather_facts: false
   become: true
   become_method: su
@@ -105,9 +105,9 @@
         update_cache: yes
 
   - name: Remove dependencies which are no longer required
-    tags: lite
+    tags: centos
     package:
         autoremove: yes
-        purge: yes            # Use purge with autoremove
+        #purge: yes            # Use purge with autoremove
 
 
